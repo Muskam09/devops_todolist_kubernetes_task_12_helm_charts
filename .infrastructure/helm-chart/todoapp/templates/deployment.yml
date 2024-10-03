@@ -42,7 +42,7 @@ spec:
         - name: {{ $k }}
           valueFrom:
             secretKeyRef:
-              name: {{ .Chart.Name }}-secret
+              name: {{ $.Chart.Name }}-secret
               key: {{ $k }}
         {{- end }}
         - name: PYTHONUNBUFFERED
@@ -84,5 +84,5 @@ spec:
                 operator: In
                 values:
                 {{- range .Values.todoapp.affinity.values }}
-                - {{ . }}
+                  - {{ . }}
                 {{- end }}

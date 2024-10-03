@@ -26,7 +26,7 @@ mysql:
       key: "app"
       value:
       - mysql
-     nodeaffinity:
+    nodeaffinity:
       key: "app"
       value:
       - "mysql"

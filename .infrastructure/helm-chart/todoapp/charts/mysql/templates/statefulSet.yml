@@ -1,8 +1,8 @@
-piVersion: apps/v1
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name:  {{ .Chart.Name }}
-  namespace: {{ .Values.mysql.namespace.name }}
+  namespace: {{ .Values.mysql.common.namespace }}
 spec:
   selector:
     matchLabels:
@@ -43,15 +43,15 @@ spec:
         livenessProbe:
           exec:
             command: ["mysqladmin", "ping"]
-          initialDelaySeconds: 30
+          initialDelaySeconds: 60
           periodSeconds: 10
           timeoutSeconds: 5
         readinessProbe:
           exec:
             command: ["mysqladmin", "ping"]
-          initialDelaySeconds: 5
+          initialDelaySeconds: 60
           periodSeconds: 2
-          timeoutSeconds: 1
+          timeoutSeconds: 5
       volumes:
       - name: config-map
         configMap:
