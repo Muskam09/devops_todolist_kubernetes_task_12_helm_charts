@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       app:  {{ .Chart.Name }}
-  replicas: {{ .Values.mysql.statefulSet.replicas }}
+  replicas: {{ .Values.mysql.replicas.qty }}
   serviceName:  {{ .Chart.Name }}
   template:
     metadata:
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name:  {{ .Chart.Name }}
-        image: {{ .Values.mysql.image.repository }}:{{ .Values.mysql.image.tag }}
+        image: {{ .Values.mysql.containers.repository }}:{{ .Values.mysql.containers.tag }}
         env:
         {{- range $k, $v := .Values.mysql.secrets }}
         - name: {{ $k }}
@@ -43,15 +43,15 @@ spec:
         livenessProbe:
           exec:
             command: ["mysqladmin", "ping"]
-          initialDelaySeconds: 60
+          initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
         readinessProbe:
           exec:
             command: ["mysqladmin", "ping"]
-          initialDelaySeconds: 60
+          initialDelaySeconds: 5
           periodSeconds: 2
-          timeoutSeconds: 5
+          timeoutSeconds: 1
       volumes:
       - name: config-map
         configMap:

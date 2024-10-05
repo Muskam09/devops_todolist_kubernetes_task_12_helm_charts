@@ -21,14 +21,14 @@ todoapp:
     maxSurge: 1
     maxUnavailable: 1
 
-  image:
+  containers:
     repository: ikulyk404/todoapp
     version: 4.0.1
 
   affinity:
     key: app
     values:
-      - todoapp
+    - todoapp
 
   hpa:
     minReplicas: 2
@@ -39,9 +39,8 @@ todoapp:
       averageUtilization: 70
 
   pv:
-    resources:
-      requests:
-        storage: 1Gi
+    capacity:
+      storage: 1Gi
 
   pvc:
     requests:

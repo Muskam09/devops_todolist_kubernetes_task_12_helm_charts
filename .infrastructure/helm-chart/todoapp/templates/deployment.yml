@@ -20,7 +20,7 @@ spec:
       serviceAccountName: {{ .Values.todoapp.serviceAccount.name }}
       containers:
       - name: {{ .Chart.Name }}
-        image: {{ .Values.todoapp.image.repository }}:{{ .Values.todoapp.image.version }}
+        image: {{ .Values.todoapp.containers.repository }}:{{ .Values.todoapp.containers.version }}
         volumeMounts:
         - name: data
           mountPath: /app/data
@@ -56,14 +56,14 @@ spec:
           httpGet:
             path: api/health
             port: 8080
-          initialDelaySeconds: 120
-          periodSeconds: 10
+          initialDelaySeconds: 60
+          periodSeconds: 5
         readinessProbe:
           httpGet:
             path: api/ready
             port: 8080
-          initialDelaySeconds: 60
-          periodSeconds: 10
+          initialDelaySeconds: 5
+          periodSeconds: 5
       volumes:
       - name: data
         persistentVolumeClaim:
